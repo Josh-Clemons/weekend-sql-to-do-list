@@ -1,11 +1,11 @@
 Base mode tasks:
-    [] wireframe html
+    [x] wireframe html
         -input fields for: 
-            [] task details
-            [] task completed by required date
-            [] task owner
-        [] submit button
-        [] table for task list
+            [x] task details
+            [x] task completed by required date
+            [x] task owner
+        [x] submit button
+        [x] table for task list
             - name, required by, details, is complete, mark as complete, delete
     [] create database
         Table requires:

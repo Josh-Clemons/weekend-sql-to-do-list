@@ -8,6 +8,7 @@ function onReady() {
 
 function clickListeners() {
     $('#submitButton').on('click', postTask);
+    $('#taskTableBody').on('click', '.deleteButton', deleteTask);
 };
 
 
@@ -24,6 +25,7 @@ function getTasks() {
     });
 };
 
+// POST new task to sever/database
 function postTask() {
     // console.log('in postTask');
     let newTask = {
@@ -45,7 +47,19 @@ function postTask() {
     });
 };
 
+// DELETE task from database
+function deleteTask() {
+    let taskId = $(this).data('id');
 
+    $.ajax({
+        method: 'DELETE',
+        url: 'tasks/' + taskId
+    }).then(function (){
+        getTasks();
+    }).catch(function (error) {
+        alert('error DELETEing task', error);
+    });
+};
 
 function renderTable(tasks) {
     $('#taskTableBody').empty();
@@ -57,8 +71,8 @@ function renderTable(tasks) {
                 <td>${task.date}</td>
                 <td>${task.details}</td>
                 <td>${task.is_complete}</td>
-                <td><button>Complete</button></td>
-                <td><button>Delete</button></td>
+                <td><button data-id="${task.id}">Complete</button></td>
+                <td><button class="deleteButton" data-id="${task.id}">Delete</button></td>
             </tr>
         `);
     };

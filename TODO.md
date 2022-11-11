@@ -7,7 +7,7 @@ Base mode tasks:
         [x] submit button
         [x] table for task list
             - name, required by, details, is complete, mark as complete, delete
-    [] create database
+    [x] create database
         Table requires:
             Owner Name,
             Task Details,

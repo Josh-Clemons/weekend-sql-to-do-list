@@ -23,6 +23,8 @@ pool.on('error', (error) => {
   console.log('error in postgres pool.', error);
 });
 
+
+// GET/SELECT all items from tasks table
 taskRouter.get('/', (req,res) =>{
   let queryText = `SELECT * FROM "tasks";`;
 
@@ -35,6 +37,19 @@ taskRouter.get('/', (req,res) =>{
   });
 });
 
+// POST/INSERT new task into table
+taskRouter.post('/', (req, res) => {
+  let queryText = `INSERT INTO "tasks" ("owner", "date", "details", "is_complete")
+    VALUES ($1, $2, $3, $4);`;
+  // console.log('req.body', req.body);
+  pool.query(queryText, [req.body.owner, req.body.date, req.body.details, req.body.is_complete])
+    .then((response) => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      alert('error POSTing', error);
+      res.sendStatus(500);
+    });
+});
 
 
 module.exports = taskRouter;

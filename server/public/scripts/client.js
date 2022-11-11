@@ -29,8 +29,9 @@ function postTask() {
     let newTask = {
         owner: $('#ownerInput').val(),
         date: $('#dateInput').val(),
-        details: $('#taskDescriptionInput').val()
-    }
+        details: $('#taskDescriptionInput').val(),
+        is_complete: false
+    };
 
     $.ajax({
         method: 'POST',
@@ -38,6 +39,7 @@ function postTask() {
         data: newTask
     }).then(function(response) {
         console.log('post success response', response);
+        getTasks()
     }).catch(function (error) {
         alert('error POSTing', error);
     });

@@ -8,11 +8,11 @@ const pg = require('pg');
 const { mainModule } = require('process');
 const Pool = pg.Pool;
 const pool = new Pool({
-  database: 'task_list', // name of database
-  host: 'localhost', // database server
-  port: 5432, // Postgres default
-  max: 10, // max queries at once
-  idleTimeoutMillis: 30000 // 30 seconds to try to connect before cancelling query
+  database: 'weekend-to-do-app',
+  host: 'localhost',
+  port: 5432,
+  max: 10,
+  idleTimeoutMillis: 30000 
 });
 
 // not required, but useful for debugging:
@@ -27,7 +27,7 @@ pool.on('error', (error) => {
 
 // GET/SELECT all items from tasks table
 taskRouter.get('/', (req,res) =>{
-  let queryText = `SELECT * FROM "tasks" ORDER BY "date" DESC;`;
+  let queryText = `SELECT * FROM "tasks" ORDER BY "date";`;
 
   pool.query(queryText).then((response) =>{
     console.log('get successful');

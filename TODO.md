@@ -16,13 +16,13 @@ Base mode tasks:
     [] setup API routes (use router file)
         [x] setup server
         [x] setup router for task database
-        [] GET for entire list
-        [] POST to create new task
-        [] PUT to mark completed
-        [] DELETE individual record
+        [x] GET for entire list
+        [x] POST to create new task
+        [x] PUT to mark completed
+        [x] DELETE individual record
     [] Style CSS
-        [] page basic design
+        [x] page basic design
             -background, font family/size, div layout
-        [] table design
-        [] completed items class
+        [x] div design
+        [x] completed items class
         [] button design

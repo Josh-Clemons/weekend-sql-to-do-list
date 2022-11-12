@@ -26,3 +26,16 @@ Base mode tasks:
         [x] div design
         [x] completed items class
         [] button design
+
+
+Stretch goals:
+    [] fix date format
+    [] finish button design
+        [] red/green for delete/submit
+    [] sweet alert
+        [] confirm for delete
+    [] look into bootstrap
+        [] text input styling
+    [] add date stamp when completed
+    [] check query params to reverse order
+    

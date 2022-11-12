@@ -12,6 +12,10 @@ h1 {
     color: rgb(205, 212, 218);
 }
 
+span {
+    font-weight: bold;
+}
+
 .taskItem {
     border: 3px solid rgb(81, 105, 129);
     border-radius: 10px;

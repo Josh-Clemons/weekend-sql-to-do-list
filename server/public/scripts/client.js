@@ -113,13 +113,13 @@ function renderTable(tasks) {
         $('#taskListDiv').append(`
             <div class="taskItem ${task.is_complete === true ? 'onHide' : ''}">
                 <h4>Owner: ${task.owner}</h4>
-                <section>Date Required Complete: ${task.date}</section>
-                <section>Task Status: ${task.is_complete == true ? 'Completed' : 'Not Complete'}</section>
+                <section><span>Date Required Complete: </span>${task.date}</section>
+                <section><span>Task Status: </span>${task.is_complete == true ? 'Completed' : 'Not Complete'}</section>
                 <p>
                     <button class="completeButton" data-id="${task.id}" data-complete="${task.is_complete}">${task.is_complete === true ? 'Undo Complete' : 'Mark Completed'}</button>
                     <button class="deleteButton" data-id="${task.id}">Delete</button>
                 </p>
-                <p>${task.details}</p>
+                <p><span>Details: </span>${task.details}</p>
             </div>            
         `);
     };

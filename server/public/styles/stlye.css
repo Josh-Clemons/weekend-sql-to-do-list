@@ -1,7 +1,70 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+#inputDiv section {
+    display: flex;
+    flex-direction: row;
+    width: 340px;
+}
+
+label {
+    width: 140px;
+    font-weight: bold;
+}
+
+.taskItem section {
+    margin-top: 5px;
+}
+
+.taskItem h4 {
+    margin-bottom: -1px;
+    margin-top: -1px;
+}
+
+.taskItem {
+    border: 3px solid black;
+    margin: 5px;
+    padding: 5px;
+}
+
+#submitButton {
+    margin: 0px 0px 5px 0px;
+    padding: 5px 10px 5px 10px;
+}
+
 #inputDiv {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     flex-wrap: wrap;
     row-gap: 5px;
+    background-color: rgb(183, 183, 183);
+    border: 2px solid red;
+    border-radius: 10px;
+    overflow: auto;
+    width: 50%;
+    min-width: 350px;
+}
+
+
+
+#taskListDiv {
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+#taskListDiv div:nth-child(odd) {
+    background-color: antiquewhite;
+}
+
+#taskListDiv div:nth-child(even) {
+    background-color: gainsboro;
 }

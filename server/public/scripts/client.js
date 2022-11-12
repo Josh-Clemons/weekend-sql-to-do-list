@@ -8,8 +8,8 @@ function onReady() {
 
 function clickListeners() {
     $('#submitButton').on('click', postTask);
-    $('#taskTableBody').on('click', '.deleteButton', deleteTask);
-    $('#taskTableBody').on('click', '.completeButton', completeTask);
+    $('#taskListDiv').on('click', '.deleteButton', deleteTask);
+    $('#taskListDiv').on('click', '.completeButton', completeTask);
 };
 
 
@@ -82,18 +82,30 @@ function deleteTask() {
 };
 
 function renderTable(tasks) {
-    $('#taskTableBody').empty();
+    $('#taskListDiv').empty();
 
     for (let task of tasks) {
-        $('#taskTableBody').append(`
-            <tr>
-                <td>${task.owner}</td>
-                <td>${task.date}</td>
-                <td>${task.details}</td>
-                <td>${task.is_complete}</td>
-                <td><button class="completeButton" data-id="${task.id}" data-complete="${task.is_complete}">Complete</button></td>
-                <td><button class="deleteButton" data-id="${task.id}">Delete</button></td>
-            </tr>
+        $('#taskListDiv').append(`
+            <div class="taskItem">
+                <h4>Owner: ${task.owner}</h4>
+                <section>Date Required Complete: ${task.date}</section>
+                <section>Task Status: ${task.is_complete == true ? 'Completed' : 'Not Complete'}</section>
+                <p>
+                    <button class="completeButton" data-id="${task.id}" data-complete="${task.is_complete}">Complete</button>
+                    <button class="deleteButton" data-id="${task.id}">Delete</button>
+                </p>
+                <p>${task.details}</p>
+            </div>            
         `);
     };
 };
+
+
+            // <tr>
+            //     <td>${task.owner}</td>
+            //     <td>${task.date}</td>
+            //     <td>${task.details}</td>
+            //     <td>${task.is_complete}</td>
+            //     <td><button class="completeButton" data-id="${task.id}" data-complete="${task.is_complete}">Complete</button></td>
+            //     <td><button class="deleteButton" data-id="${task.id}">Delete</button></td>
+            // </tr>

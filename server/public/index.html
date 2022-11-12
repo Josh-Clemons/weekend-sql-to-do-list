@@ -12,19 +12,24 @@
 </head>
 <body>
     <h1>Josh's To-Do List</h1>
-    <h3>Add Task</h3>    
     <div id="inputDiv">
-        <label for="ownerInput">Owner: </label>
-        <input type="text" id="ownerInput" placeholder="Task Owner">
-        <label for="dateInput">Completed by Date: </label>
-        <input type="date" id="dateInput" placeholder="Date Required Complete">
-        <label for="taskDescriptionInput">Description: </label>
-        <textarea id="taskDescriptionInput" placeholder="Description" rows="4" cols="30"></textarea>
+        <h3>Add Task</h3>
+        <section>
+            <label for="ownerInput">Owner: </label>
+            <input type="text" id="ownerInput" placeholder="Task Owner">
+        </section>
+        <section>
+            <label for="dateInput">Completed by Date: </label>
+            <input type="date" id="dateInput" placeholder="Date Required Complete">
+        </section>
+        <section>
+            <label for="taskDescriptionInput">Description: </label>
+            <textarea id="taskDescriptionInput" placeholder="Description" rows="4" cols="20"></textarea>
+        </section>
         <button id="submitButton">Submit</button>
-    </div>
-
+    </div> 
     <div id="taskListDiv">
-        <h2>Task List:</h2>
+        <!-- <h2>Task List:</h2>
         <table>
             <thead>
                 <tr>
@@ -39,7 +44,7 @@
             <tbody id="taskTableBody">
 
             </tbody>
-        </table>
+        </table> -->
     </div>
 </body>
 </html>

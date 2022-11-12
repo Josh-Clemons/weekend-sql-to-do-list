@@ -39,7 +39,7 @@ function hideCompleted() {
 
 // GET tasks from database
 function getTasks() {
-    console.log('in getTasks');
+    // console.log('in getTasks');
     $.ajax({
         method: 'GET',
         url: '/tasks'
@@ -66,7 +66,10 @@ function postTask() {
         url: '/tasks',
         data: newTask
     }).then(function(response) {
-        console.log('post success response', response);
+        // console.log('post success response', response);
+        $('#ownerInput').val('');
+        $('#dateInput').val('');
+        $('#taskDescriptionInput').val('');
         getTasks();
     }).catch(function (error) {
         alert('error POSTing', error);
@@ -96,30 +99,46 @@ function completeTask() {
 function deleteTask() {
     let taskId = $(this).data('id');
 
-    $.ajax({
-        method: 'DELETE',
-        url: '/tasks/' + taskId
-    }).then(function (){
-        getTasks();
-    }).catch(function (error) {
-        alert('error DELETEing task', error);
-    });
+    Swal.fire({
+        title: 'Are you sure you want to delete?',
+        showDenyButton: true,
+        confirmButtonText: 'Delete',
+    }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            $.ajax({
+                method: 'DELETE',
+                url: '/tasks/' + taskId
+            }).then(function (){
+                getTasks();
+            }).catch(function (error) {
+                alert('error DELETEing task', error);
+            });
+        } else {
+            return;
+        }
+    })
+
+        
+
+    
 };
 
 function renderTable(tasks) {
+
     $('#taskListDiv').empty();
 
     for (let task of tasks) {
         $('#taskListDiv').append(`
             <div class="taskItem ${task.is_complete === true ? 'onHide' : ''}">
                 <h4>Owner: ${task.owner}</h4>
-                <section>Date Required Complete: ${task.date}</section>
-                <section>Task Status: ${task.is_complete == true ? 'Completed' : 'Not Complete'}</section>
-                <p>
-                    <button class="completeButton" data-id="${task.id}" data-complete="${task.is_complete}">${task.is_complete === true ? 'Undo Complete' : 'Mark Completed'}</button>
-                    <button class="deleteButton" data-id="${task.id}">Delete</button>
+                <section><span class="lead">Date Required Complete: </span>${task.f_date}</section>
+                <section><span class="lead">Task Status: </span>${task.is_complete == true ? 'Completed' : 'Not Complete'}</section>
+                <section><span class="lead">Details: </span>${task.details}</section>
+                <p class="mt-3 mb-3">
+                    <button class="btn btn-secondary completeButton" data-id="${task.id}" data-complete="${task.is_complete}">${task.is_complete === true ? 'Undo Complete' : 'Mark Completed'}</button>
+                    <button class="btn btn-danger deleteButton" data-id="${task.id}">Delete</button>
                 </p>
-                <p>${task.details}</p>
             </div>            
         `);
     };

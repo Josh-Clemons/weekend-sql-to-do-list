@@ -12,6 +12,11 @@ h1 {
     color: rgb(205, 212, 218);
 }
 
+h3 {
+    align-self: center;
+    margin: 0px 20px 0px 20px;
+}
+
 .taskItem {
     border: 3px solid rgb(81, 105, 129);
     border-radius: 10px;
@@ -31,10 +36,15 @@ h1 {
     padding: 5px 10px 5px 10px;
 }
 
+#buttonDiv a {
+    margin: 10px 0px 5px 0px;
+    padding: 5px 10px 5px 10px;
+}
+
 #inputDiv {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     row-gap: 5px;
     background-color: #9fb3d1;
@@ -42,33 +52,37 @@ h1 {
     border: 3px solid rgb(81, 105, 129);
     border-radius: 10px;
     overflow: auto;
-    width: 50%;
-    min-width: 350px;
+    max-width: 600px;
+    /* min-width: 300px; */
     padding: 5px;
+}
+
+#inputDiv span {
+    min-width: 160px;
 }
 
 #inputDiv section {
     display: flex;
     flex-direction: row;
-    width: 360px;
+    /* width: 360px; */
 }
 
 #inputDiv label {
-    width: 170px;
+    width: 180px;
     font-weight: bold;
 }
 
 #taskListDiv {
     overflow-y: auto;
     overflow-x: hidden;
-    min-width: 360px;
+    /* min-width: 300px; */
     width: 100%;
     margin: 10px 0px 0px 0px;
 
 }
 
 #taskListDiv .taskItem {
-    background-color: antiquewhite;
+    background-color: rgb(245, 241, 234);
     background-image: url("https://transparenttextures.com/patterns/checkered-light-emboss.png");
 
 }

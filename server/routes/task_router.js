@@ -27,7 +27,7 @@ pool.on('error', (error) => {
 
 // GET/SELECT all items from tasks table
 taskRouter.get('/', (req,res) =>{
-  let queryText = `SELECT * FROM "tasks" ORDER BY "date";`;
+  let queryText = `SELECT "owner", to_char("date", 'Mon DD, YYYY') AS "f_date", "details", "is_complete", "id" FROM "tasks" ORDER BY "date", "owner";`;
 
   pool.query(queryText).then((response) =>{
     console.log('get successful');

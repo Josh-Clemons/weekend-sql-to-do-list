@@ -1,6 +1,6 @@
 # PROJECT NAME
 
-Josh's Task List
+***Josh's To-Do List***
 
 ## Description
 
@@ -19,7 +19,7 @@ To see the fully functional site, please visit: [DEPLOYED VERSION OF APP](www.he
 Link to software that is required to install the app (e.g. node).
 
 - [Node.js](https://nodejs.org/en/)
-- PostgreSQL
+- [PostgreSQL](https://www.postgresql.org/download/)
 
 ## Installation
 

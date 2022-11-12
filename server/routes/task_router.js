@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const express = require('express');
+const { get } = require('http');
 const taskRouter = express.Router();
 
 // DB CONNECTION
@@ -26,7 +27,7 @@ pool.on('error', (error) => {
 
 // GET/SELECT all items from tasks table
 taskRouter.get('/', (req,res) =>{
-  let queryText = `SELECT * FROM "tasks";`;
+  let queryText = `SELECT * FROM "tasks" ORDER BY "date" DESC;`;
 
   pool.query(queryText).then((response) =>{
     console.log('get successful');
@@ -49,6 +50,20 @@ taskRouter.post('/', (req, res) => {
       alert('error POSTing', error);
       res.sendStatus(500);
     });
+});
+
+// PUT/UPDATE for marking task complete
+taskRouter.put('/complete/:id', (req, res) => {
+  let taskID = req.params.id;
+  let isComplete = (req.body.isComplete === 'true' ? 'FALSE' : 'TRUE');
+  let queryText = `UPDATE "tasks" SET "is_complete"=$1 WHERE "id"=$2;`;
+
+  pool.query(queryText, [isComplete, taskID]).then(() => {
+    res.sendStatus(200);
+  }).catch((error) => {
+    console.log('error updating complete', error);
+    res.sendStatus(500);
+  });
 });
 
 // DELETE task from table

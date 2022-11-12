@@ -9,6 +9,7 @@ function onReady() {
 function clickListeners() {
     $('#submitButton').on('click', postTask);
     $('#taskTableBody').on('click', '.deleteButton', deleteTask);
+    $('#taskTableBody').on('click', '.completeButton', completeTask);
 };
 
 
@@ -41,11 +42,30 @@ function postTask() {
         data: newTask
     }).then(function(response) {
         console.log('post success response', response);
-        getTasks()
+        getTasks();
     }).catch(function (error) {
         alert('error POSTing', error);
     });
 };
+
+// PUT to update task as complete
+function completeTask() {
+    let isComplete = $(this).data('complete');
+    let taskId = $(this).data('id');
+
+    $.ajax({
+        method: 'PUT',
+        url: '/tasks/complete/' + taskId,
+        data: {
+            isComplete : isComplete
+        }
+    }).then(function(response) {
+        getTasks();
+    }).catch(function(error) {
+        alert('error updating task', error);
+    });
+};
+
 
 // DELETE task from database
 function deleteTask() {
@@ -53,7 +73,7 @@ function deleteTask() {
 
     $.ajax({
         method: 'DELETE',
-        url: 'tasks/' + taskId
+        url: '/tasks/' + taskId
     }).then(function (){
         getTasks();
     }).catch(function (error) {
@@ -71,7 +91,7 @@ function renderTable(tasks) {
                 <td>${task.date}</td>
                 <td>${task.details}</td>
                 <td>${task.is_complete}</td>
-                <td><button data-id="${task.id}">Complete</button></td>
+                <td><button class="completeButton" data-id="${task.id}" data-complete="${task.is_complete}">Complete</button></td>
                 <td><button class="deleteButton" data-id="${task.id}">Delete</button></td>
             </tr>
         `);

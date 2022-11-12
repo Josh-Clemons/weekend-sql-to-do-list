@@ -5,9 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    
     <script src="vendors/jquery-3.6.1.js"></script>
     <script src="scripts/client.js"></script>
     <link rel="stylesheet" href="styles/stlye.css">
+
 
 </head>
 <body>
@@ -16,20 +21,20 @@
         <h3>Add Task</h3>
         <section>
             <label for="ownerInput">Owner: </label>
-            <input type="text" id="ownerInput" placeholder="Task Owner">
+            <input type="text" class="form-control" id="ownerInput" placeholder="Task Owner">
         </section>
         <section>
-            <label for="dateInput">Completed by Date: </label>
-            <input type="date" id="dateInput" placeholder="Date Required Complete">
+            <label for="dateInput">Required by: </label>
+            <input type="date" class="form-control" id="dateInput" placeholder="Date Required Complete">
         </section>
         <section>
             <label for="taskDescriptionInput">Description: </label>
-            <textarea id="taskDescriptionInput" placeholder="Description" rows="4" cols="20"></textarea>
+            <textarea id="taskDescriptionInput" class="form-control" placeholder="Description" rows="4" cols="20"></textarea>
         </section>
         <div id="buttonDiv">
-            <button id="submitButton">Submit</button>
-            <button class="onHide" id="hideButton">Hide Completed</button>
-            <button class="onShow" id="showButton">Show Completed</button>
+            <button class="btn btn-success" id="submitButton">Submit</button>
+            <button class="btn btn-secondary onHide" id="hideButton">Hide Completed</button>
+            <button class="btn btn-secondary onShow" id="showButton">Show Completed</button>
         </div>
     </div> 
     <div id="taskListDiv">
@@ -50,5 +55,13 @@
             </tbody>
         </table> -->
     </div>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
 </body>
 </html>

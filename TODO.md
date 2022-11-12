@@ -28,8 +28,9 @@ Base mode tasks:
         [] button design
 
 
-Stretch goals:
-    [] fix date format
+Stretch and Misc items:
+    [x] fix date format
+    [] clear input fields
     [] finish button design
         [] red/green for delete/submit
     [] sweet alert

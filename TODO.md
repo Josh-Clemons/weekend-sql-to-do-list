@@ -34,8 +34,8 @@ Stretch and Misc items:
     [x] clear input fields
     [x] finish button design
         [x] red/green for delete/submit
-    [] sweet alert
-        [] confirm for delete
+    [x] sweet alert
+        [x] confirm for delete
     [x] look into bootstrap
         [x] text input styling
     [] add date stamp when completed

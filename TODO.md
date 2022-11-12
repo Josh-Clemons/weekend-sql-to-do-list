@@ -14,6 +14,8 @@ Base mode tasks:
             Required By,
             isComplete?;        
     [] setup API routes (use router file)
+        [x] setup server
+        [x] setup router for task database
         [] GET for entire list
         [] POST to create new task
         [] PUT to mark completed

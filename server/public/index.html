@@ -19,22 +19,41 @@
     <h1>Josh's To-Do List</h1>
     <div id="inputDiv">
         <h3>Add Task</h3>
-        <section>
+        <!-- <section>
             <label for="ownerInput">Owner: </label>
             <input type="text" class="form-control" id="ownerInput" placeholder="Task Owner">
-        </section>
-        <section>
+        </section> -->
+        <!-- <section>
             <label for="dateInput">Required by: </label>
             <input type="date" class="form-control" id="dateInput" placeholder="Date Required Complete">
-        </section>
-        <section>
-            <label for="taskDescriptionInput">Description: </label>
-            <textarea id="taskDescriptionInput" class="form-control" placeholder="Description" rows="4" cols="20"></textarea>
-        </section>
-        <div id="buttonDiv">
+        </section> -->
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Owner</span>
+            </div>
+            <input type="text" class="form-control" id="ownerInput" aria-label="Owner">
+        </div>
+
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Required By</span>
+            </div>
+            <input type="date" class="form-control" id="dateInput" aria-label="Required By">
+        </div>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Task Description</span>
+            </div>
+            <textarea id="taskDescriptionInput" class="form-control" aria-label="Task Description"></textarea>
+        </div>
+
+        <div class="btn btn-group" id="buttonDiv">
             <button class="btn btn-success" id="submitButton">Submit</button>
             <button class="btn btn-secondary onHide" id="hideButton">Hide Completed</button>
             <button class="btn btn-secondary onShow" id="showButton">Show Completed</button>
+            <a href="https://www.youtube.com/watch?v=eBGIQ7ZuuiU" class="btn btn-med btn-warning">DO NOT CLICK HERE</a>
         </div>
     </div> 
     <div id="taskListDiv">

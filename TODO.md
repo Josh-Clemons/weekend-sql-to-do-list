@@ -21,8 +21,8 @@ Base mode tasks:
         [x] PUT to mark completed
         [x] DELETE individual record
     [] Style CSS
-        [] page basic design
+        [x] page basic design
             -background, font family/size, div layout
-        [] table design
-        [] completed items class
+        [x] div design
+        [x] completed items class
         [] button design

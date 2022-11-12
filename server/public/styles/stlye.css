@@ -1,4 +1,7 @@
 body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #001d3d;
+    background-image: url("https://transparenttextures.com/patterns/3px-tile.png");
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,36 +9,25 @@ body {
 
 h1 {
     text-align: center;
+    color: rgb(205, 212, 218);
 }
 
-#inputDiv section {
-    display: flex;
-    flex-direction: row;
-    width: 340px;
+.taskItem {
+    border: 3px solid rgb(81, 105, 129);
+    border-radius: 10px;
+    padding: 5px;
 }
 
-label {
-    width: 140px;
-    font-weight: bold;
-}
-
+/* .taskItem h4 {
+    margin-bottom: -1px;
+    margin-top: -1px;
+} */
 .taskItem section {
     margin-top: 5px;
 }
 
-.taskItem h4 {
-    margin-bottom: -1px;
-    margin-top: -1px;
-}
-
-.taskItem {
-    border: 3px solid black;
-    margin: 5px;
-    padding: 5px;
-}
-
-#submitButton {
-    margin: 0px 0px 5px 0px;
+#buttonDiv button {
+    margin: 10px 0px 5px 0px;
     padding: 5px 10px 5px 10px;
 }
 
@@ -45,26 +37,44 @@ label {
     align-items: center;
     flex-wrap: wrap;
     row-gap: 5px;
-    background-color: rgb(183, 183, 183);
-    border: 2px solid red;
+    background-color: #9fb3d1;
+    background-image: url("https://transparenttextures.com/patterns/checkered-light-emboss.png");
+    border: 3px solid rgb(81, 105, 129);
     border-radius: 10px;
     overflow: auto;
     width: 50%;
     min-width: 350px;
+    padding: 5px;
 }
 
+#inputDiv section {
+    display: flex;
+    flex-direction: row;
+    width: 360px;
+}
 
+#inputDiv label {
+    width: 170px;
+    font-weight: bold;
+}
 
 #taskListDiv {
     overflow-y: auto;
     overflow-x: hidden;
+    min-width: 360px;
     width: 100%;
+    margin: 10px 0px 0px 0px;
+
 }
 
-#taskListDiv div:nth-child(odd) {
+#taskListDiv .taskItem {
     background-color: antiquewhite;
+    background-image: url("https://transparenttextures.com/patterns/checkered-light-emboss.png");
+
 }
 
-#taskListDiv div:nth-child(even) {
-    background-color: gainsboro;
+#taskListDiv .onHide {
+    background-color: rgb(152, 197, 152);
+    background-image: url("https://transparenttextures.com/patterns/checkered-light-emboss.png");
 }
+

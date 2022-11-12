@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="vendors/jquery-3.6.1.js"></script>
     <script src="scripts/client.js"></script>
     <link rel="stylesheet" href="styles/stlye.css">
@@ -18,15 +18,7 @@
 <body>
     <h1>Josh's To-Do List</h1>
     <div id="inputDiv">
-        <h3>Add Task</h3>
-        <!-- <section>
-            <label for="ownerInput">Owner: </label>
-            <input type="text" class="form-control" id="ownerInput" placeholder="Task Owner">
-        </section> -->
-        <!-- <section>
-            <label for="dateInput">Required by: </label>
-            <input type="date" class="form-control" id="dateInput" placeholder="Date Required Complete">
-        </section> -->
+        <h3 class="display-6">Add Task</h3>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Owner</span>
@@ -55,24 +47,9 @@
             <button class="btn btn-secondary onShow" id="showButton">Show Completed</button>
             <a href="https://www.youtube.com/watch?v=eBGIQ7ZuuiU" class="btn btn-med btn-warning">DO NOT CLICK HERE</a>
         </div>
-    </div> 
+    </div>
+    
     <div id="taskListDiv">
-        <!-- <h2>Task List:</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Owner</td>
-                    <th>Date Required</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Complete</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody id="taskTableBody">
-
-            </tbody>
-        </table> -->
     </div>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

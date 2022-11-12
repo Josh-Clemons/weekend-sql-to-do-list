@@ -12,6 +12,10 @@ h1 {
     color: rgb(205, 212, 218);
 }
 
+h3 {
+    align-self: center;
+    margin: 0px 20px 0px 20px;
+}
 
 .taskItem {
     border: 3px solid rgb(81, 105, 129);
@@ -78,7 +82,7 @@ h1 {
 }
 
 #taskListDiv .taskItem {
-    background-color: antiquewhite;
+    background-color: rgb(245, 241, 234);
     background-image: url("https://transparenttextures.com/patterns/checkered-light-emboss.png");
 
 }

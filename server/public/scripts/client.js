@@ -1,12 +1,11 @@
 $(document).ready(onReady);
 
 let showComplete = true;
-let sortOrder = 'dateAsc';
-let mode = 'new';
+let sortOrder = 'dateAsc'; // default sort order, switch statement on router uses this to determine query SORT BY
+let mode = 'new'; // two modes, 'new' and 'edit', sets default to new
 let editStatus;
 
 function onReady() {
-    console.log('jquery loaded');
     getTasks();
     clickListeners();
 }
@@ -26,30 +25,29 @@ function clickListeners() {
     $('#taskListDiv').on('click', '.editButton', editTask);
     $('#hideButton').on('click', hideCompleted);
     $('#showButton').on('click', showCompleted);
+    $('#cancelButton').on('click', getTasks)
     $('.sort-button').on('click', sortTasks);
-
-    // testing date field to verify data for sql
-    // $('#dateInput').on('change', function () {console.log($(this).val());})
 };
 
-function showCompleted() {
+function showCompleted() { // used for filtering out completed tasks
     $('.onHide').show();
     $('.onShow').hide();
     showComplete = true;
 };
 
-function hideCompleted() {
+function hideCompleted() { // used for filtering out completed tasks
     $('.onHide').hide();
     $('.onShow').show();
     showComplete = false;
 };
 
-function sortTasks() {
+function sortTasks() { // sets query SORT BY variable and sends to server via getTasks
     sortOrder = $(this).data('id');
     getTasks();
 }
 
 // Sets page up for editing task
+// hides all tasks, sets input fields to the values of task being edited
 function editTask() {
     $('#ownerInput').val($(this).parent().siblings(':first-child').data('owner'));
     $('#dateInput').val($(this).parent().siblings(':nth-child(2)').data('date'));
@@ -59,11 +57,13 @@ function editTask() {
     $('.taskItem').hide();
     $('.hide').show();
     $('.show').hide();
+    $('#cancelButton').show();
+    $('#hideButton').hide();
+    $('#showButton').hide();
 }
 
 // GET tasks from database
 function getTasks() {
-    // console.log('in getTasks');
     $.ajax({
         method: 'GET',
         url: '/tasks/' + sortOrder
@@ -76,8 +76,8 @@ function getTasks() {
 
 // POST new task to sever/database
 function postTask() {
-    // console.log('in postTask');
-    $('.taskItem').show();
+
+    // sets input values to object variable for sending to server
     let newTask = {
         owner: $('#ownerInput').val(),
         date: $('#dateInput').val(),
@@ -86,18 +86,14 @@ function postTask() {
     };
 
 
-
+// checks if we are in edit task mode. If we are,
+// do a PUT API instead
     if (mode === 'edit') {
-        $('#taskListDiv').show();
         $.ajax({
-            method: 'POST',
+            method: 'PUT',
             url: '/tasks/edit/' + editStatus,
             data: newTask
         }).then(function(response) {
-            // console.log('post success response', response);
-            $('#ownerInput').val('');
-            $('#dateInput').val('');
-            $('#taskDescriptionInput').val('');
             getTasks();
         }).catch(function (error) {
             alert('error POSTing', error);
@@ -108,7 +104,6 @@ function postTask() {
             url: '/tasks',
             data: newTask
         }).then(function(response) {
-            // console.log('post success response', response);
             $('#ownerInput').val('');
             $('#dateInput').val('');
             $('#taskDescriptionInput').val('');
@@ -133,6 +128,7 @@ function completeTask() {
         dateStamp = mm + '/' + dd + '/' + yyyy;
     };
 
+    // object to send to server
     let postObject = {
         isComplete: isComplete,
         dateStamp: dateStamp
@@ -181,10 +177,17 @@ function deleteTask() {
 };
 
 function renderTable(tasks) {
+    // resets elements and mode to match initial page load
     $('#taskListDiv').empty();
+    $('#ownerInput').val('');
+    $('#dateInput').val('');
+    $('#taskDescriptionInput').val('');
+    $('#cancelButton').hide();
+    $('#hideButton').show();
+    mode = 'new';
 
+    // renders a new div for each task item
     for (let task of tasks) {
-        // console.log('task object', task);
         $('#taskListDiv').append(`
             <div class="shadow mb-2 taskItem ${task.is_complete === true ? 'onHide' : ''}">
                 <h4 data-owner="${task.owner}">Owner: ${task.owner}</h4>
@@ -193,9 +196,9 @@ function renderTable(tasks) {
                 <section class="${task.completed_on ? 'show' : 'hide'}"><span class="lead">Completed On: </span>${task.completed_on}</section>
                 <section data-details="${task.details}"><span class="lead">Details: </span>${task.details}</section>
                 <p class="mt-3 mb-3">
-                    <button class="btn btn-secondary completeButton" data-id="${task.id}" data-complete="${task.is_complete}">${task.is_complete === true ? 'Undo Complete' : 'Mark Completed'}</button>
-                    <button class="btn btn-warning editButton" data-id=${task.id}>Edit</button>
-                    <button class="btn btn-danger deleteButton" data-id="${task.id}">Delete</button>
+                    <button class="btn btn-secondary btn-sm completeButton" data-id="${task.id}" data-complete="${task.is_complete}">${task.is_complete === true ? 'Undo Complete' : 'Mark Completed'}</button>
+                    <button class="btn btn-warning btn-sm editButton" data-id=${task.id}>Edit</button>
+                    <button class="btn btn-danger btn-sm deleteButton" data-id="${task.id}">Delete</button>
                 </p>
             </div>            
         `);
@@ -203,6 +206,6 @@ function renderTable(tasks) {
 
     $('.hide').hide();
     $('.show').show();
-    (showComplete ? showCompleted() : hideCompleted());
+    (showComplete ? showCompleted() : hideCompleted()); // hides or shows completed each time it renders to match users selected preference
 
 };

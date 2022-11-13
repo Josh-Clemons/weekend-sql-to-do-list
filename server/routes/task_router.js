@@ -15,21 +15,12 @@ const pool = new Pool({
   idleTimeoutMillis: 30000 
 });
 
-// not required, but useful for debugging:
-pool.on('connect', () => {
-  console.log('postgresql is connected!');
-});
-
-pool.on('error', (error) => {
-  console.log('error in postgres pool.', error);
-});
-
-
 // GET/SELECT all items from tasks table
 taskRouter.get('/:sortOrder', (req,res) =>{
   let sortOrder = req.params.sortOrder;
   let queryText = '';
   
+  //switch statement determines query for sort order user selected
   switch (sortOrder) {
     case 'dateAsc':
       queryText = `SELECT "owner", to_char("date", 'YYYY-MM-DD') AS "f_date", "details", "is_complete", "id", to_char("completed_on", 'Mon DD, YYYY') AS "completed_on" FROM "tasks" ORDER BY "date", "owner";`;
@@ -45,10 +36,8 @@ taskRouter.get('/:sortOrder', (req,res) =>{
       break;
   };
 
-
-
+  // query to SELECT data from DB
   pool.query(queryText).then((response) =>{
-    // console.log('get successful');
     res.send(response);
   }).catch((error) => {
     alert('error GETting', error);
@@ -60,9 +49,9 @@ taskRouter.get('/:sortOrder', (req,res) =>{
 taskRouter.post('/', (req, res) => {
   let queryText = `INSERT INTO "tasks" ("owner", "date", "details", "is_complete")
     VALUES ($1, $2, $3, $4);`;
-  // console.log('req.body', req.body);
-  pool.query(queryText, [req.body.owner, req.body.date, req.body.details, req.body.is_complete])
-    .then((response) => {
+
+    pool.query(queryText, [req.body.owner, req.body.date, req.body.details, req.body.is_complete])
+    .then(() => {
       res.sendStatus(200);
     }).catch((error) => {
       alert('error POSTing', error);
@@ -70,12 +59,12 @@ taskRouter.post('/', (req, res) => {
     });
 });
 
-taskRouter.post('/edit/:id', (req, res) => {
+// edit mode route from client.js postTask
+taskRouter.put('/edit/:id', (req, res) => {
   let taskId = req.params.id;
   let queryText = `UPDATE "tasks" SET "owner"=$1, "date"=$2, "details"=$3 WHERE "id"=$4`;
-  // console.log('req.body', req.body);
   pool.query(queryText, [req.body.owner, req.body.date, req.body.details, taskId])
-    .then((response) => {
+    .then(() => {
       res.sendStatus(200);
     }).catch((error) => {
       alert('error POSTing', error);
@@ -90,7 +79,6 @@ taskRouter.put('/complete/:id', (req, res) => {
   // assigns isComplete opposite value of input to make change in database
   let isComplete = (req.body.isComplete === 'true' ? 'FALSE' : 'TRUE');
   let completedOn = (req.body.dateStamp);
-  // console.log('req.body:', req.body);
   let queryText = `UPDATE "tasks" SET "is_complete"=$1, "completed_on"=$2 WHERE "id"=$3;`;
 
   pool.query(queryText, [isComplete, completedOn, taskID]).then(() => {

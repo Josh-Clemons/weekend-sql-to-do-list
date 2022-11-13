@@ -42,4 +42,5 @@ Stretch and Misc items:
     [] research query params to understand....
     [x] sort by asc/desc options
     [] add edit function
+    [] move stuff to modules
     

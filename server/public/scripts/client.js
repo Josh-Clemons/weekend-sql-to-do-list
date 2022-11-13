@@ -2,6 +2,8 @@ $(document).ready(onReady);
 
 let showComplete = true;
 let sortOrder = 'dateAsc';
+let mode = 'new';
+let editStatus;
 
 function onReady() {
     console.log('jquery loaded');
@@ -51,8 +53,12 @@ function sortTasks() {
 function editTask() {
     $('#ownerInput').val($(this).parent().siblings(':first-child').data('owner'));
     $('#dateInput').val($(this).parent().siblings(':nth-child(2)').data('date'));
-    console.log($('#dateInput').val($(this).parent().siblings(':nth-child(2)').data('date')));
     $('#taskDescriptionInput').val($(this).parent().siblings(':nth-child(5)').data('details'));
+    mode = 'edit';
+    editStatus = $(this).data('id');
+    $('.taskItem').hide();
+    $('.hide').show();
+    $('.show').hide();
 }
 
 // GET tasks from database
@@ -71,7 +77,7 @@ function getTasks() {
 // POST new task to sever/database
 function postTask() {
     // console.log('in postTask');
-    
+    $('.taskItem').show();
     let newTask = {
         owner: $('#ownerInput').val(),
         date: $('#dateInput').val(),
@@ -79,19 +85,38 @@ function postTask() {
         is_complete: false
     };
 
-    $.ajax({
-        method: 'POST',
-        url: '/tasks',
-        data: newTask
-    }).then(function(response) {
-        // console.log('post success response', response);
-        $('#ownerInput').val('');
-        $('#dateInput').val('');
-        $('#taskDescriptionInput').val('');
-        getTasks();
-    }).catch(function (error) {
-        alert('error POSTing', error);
-    });
+
+
+    if (mode === 'edit') {
+        $('#taskListDiv').show();
+        $.ajax({
+            method: 'POST',
+            url: '/tasks/edit/' + editStatus,
+            data: newTask
+        }).then(function(response) {
+            // console.log('post success response', response);
+            $('#ownerInput').val('');
+            $('#dateInput').val('');
+            $('#taskDescriptionInput').val('');
+            getTasks();
+        }).catch(function (error) {
+            alert('error POSTing', error);
+        });
+    } else {
+        $.ajax({
+            method: 'POST',
+            url: '/tasks',
+            data: newTask
+        }).then(function(response) {
+            // console.log('post success response', response);
+            $('#ownerInput').val('');
+            $('#dateInput').val('');
+            $('#taskDescriptionInput').val('');
+            getTasks();
+        }).catch(function (error) {
+            alert('error POSTing', error);
+        });
+    };
 };
 
 // PUT to update task as complete
@@ -156,7 +181,6 @@ function deleteTask() {
 };
 
 function renderTable(tasks) {
-    
     $('#taskListDiv').empty();
 
     for (let task of tasks) {

@@ -32,16 +32,16 @@ taskRouter.get('/:sortOrder', (req,res) =>{
   
   switch (sortOrder) {
     case 'dateAsc':
-      queryText = `SELECT "owner", to_char("date", 'Mon DD, YYYY') AS "f_date", "details", "is_complete", "id", to_char("completed_on", 'Mon DD, YYYY') AS "completed_on" FROM "tasks" ORDER BY "date", "owner";`;
+      queryText = `SELECT "owner", to_char("date", 'YYYY-MM-DD') AS "f_date", "details", "is_complete", "id", to_char("completed_on", 'Mon DD, YYYY') AS "completed_on" FROM "tasks" ORDER BY "date", "owner";`;
       break;
     case 'dateDesc':
-      queryText = `SELECT "owner", to_char("date", 'Mon DD, YYYY') AS "f_date", "details", "is_complete", "id", to_char("completed_on", 'Mon DD, YYYY') AS "completed_on" FROM "tasks" ORDER BY "date" DESC, "owner";`;
+      queryText = `SELECT "owner", to_char("date", 'YYYY-MM-DD') AS "f_date", "details", "is_complete", "id", to_char("completed_on", 'Mon DD, YYYY') AS "completed_on" FROM "tasks" ORDER BY "date" DESC, "owner";`;
       break;
     case 'ownerAsc':
-      queryText = `SELECT "owner", to_char("date", 'Mon DD, YYYY') AS "f_date", "details", "is_complete", "id", to_char("completed_on", 'Mon DD, YYYY') AS "completed_on" FROM "tasks" ORDER BY "owner", "date";`;
+      queryText = `SELECT "owner", to_char("date", 'YYYY-MM-DD') AS "f_date", "details", "is_complete", "id", to_char("completed_on", 'Mon DD, YYYY') AS "completed_on" FROM "tasks" ORDER BY "owner", "date";`;
       break;
     case 'ownerDesc':
-      queryText = `SELECT "owner", to_char("date", 'Mon DD, YYYY') AS "f_date", "details", "is_complete", "id", to_char("completed_on", 'Mon DD, YYYY') AS "completed_on" FROM "tasks" ORDER BY "owner" DESC, "date";`;
+      queryText = `SELECT "owner", to_char("date", 'YYYY-MM-DD') AS "f_date", "details", "is_complete", "id", to_char("completed_on", 'Mon DD, YYYY') AS "completed_on" FROM "tasks" ORDER BY "owner" DESC, "date";`;
       break;
   };
 
@@ -69,6 +69,20 @@ taskRouter.post('/', (req, res) => {
       res.sendStatus(500);
     });
 });
+
+taskRouter.post('/edit/:id', (req, res) => {
+  let taskId = req.params.id;
+  let queryText = `UPDATE "tasks" SET "owner"=$1, "date"=$2, "details"=$3 WHERE "id"=$4`;
+  // console.log('req.body', req.body);
+  pool.query(queryText, [req.body.owner, req.body.date, req.body.details, taskId])
+    .then((response) => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      alert('error POSTing', error);
+      res.sendStatus(500);
+    });
+});
+
 
 // PUT/UPDATE for marking task complete
 taskRouter.put('/complete/:id', (req, res) => {

@@ -41,7 +41,7 @@
             <textarea id="taskDescriptionInput" class="form-control" aria-label="Task Description"></textarea>
         </div>
 
-        <div class="btn btn-group" id="buttonDiv">
+        <div id="buttonDiv">
             <button class="btn btn-success" id="submitButton">Submit</button>
             <button class="btn btn-secondary onHide" id="hideButton">Hide Completed</button>
             <button class="btn btn-secondary onShow" id="showButton">Show Completed</button>
@@ -49,7 +49,18 @@
         </div>
     </div>
     
-    <div id="taskListDiv">
+    <div class="d-flex justify-content-center m-3 p-1" id="filterButtonDiv">
+        <p class="button-group text-white lead m-3">Sort by Owner:
+            <button class="btn btn-light sort-button" data-id="ownerAsc">ASC</button>
+            <button class="btn btn-secondary sort-button" data-id="ownerDesc">DESC</button>
+        </p>
+        <p class="button-group text-white lead m-3">Sort by Date:
+            <button class="btn btn-light sort-button" data-id="dateAsc">ASC</button>
+            <button class="btn btn-secondary sort-button" data-id="dateDesc">DESC</button>
+        </p>
+    </div>
+
+    <div class="container" id="taskListDiv">
     </div>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

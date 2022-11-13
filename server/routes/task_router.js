@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router, query } = require('express');
 const express = require('express');
 const { get } = require('http');
 const taskRouter = express.Router();
@@ -26,11 +26,29 @@ pool.on('error', (error) => {
 
 
 // GET/SELECT all items from tasks table
-taskRouter.get('/', (req,res) =>{
-  let queryText = `SELECT "owner", to_char("date", 'Mon DD, YYYY') AS "f_date", "details", "is_complete", "id" FROM "tasks" ORDER BY "date", "owner";`;
+taskRouter.get('/:sortOrder', (req,res) =>{
+  let sortOrder = req.params.sortOrder;
+  let queryText = '';
+  
+  switch (sortOrder) {
+    case 'dateAsc':
+      queryText = `SELECT "owner", to_char("date", 'Mon DD, YYYY') AS "f_date", "details", "is_complete", "id", to_char("completed_on", 'Mon DD, YYYY') AS "completed_on" FROM "tasks" ORDER BY "date", "owner";`;
+      break;
+    case 'dateDesc':
+      queryText = `SELECT "owner", to_char("date", 'Mon DD, YYYY') AS "f_date", "details", "is_complete", "id", to_char("completed_on", 'Mon DD, YYYY') AS "completed_on" FROM "tasks" ORDER BY "date" DESC, "owner";`;
+      break;
+    case 'ownerAsc':
+      queryText = `SELECT "owner", to_char("date", 'Mon DD, YYYY') AS "f_date", "details", "is_complete", "id", to_char("completed_on", 'Mon DD, YYYY') AS "completed_on" FROM "tasks" ORDER BY "owner", "date";`;
+      break;
+    case 'ownerDesc':
+      queryText = `SELECT "owner", to_char("date", 'Mon DD, YYYY') AS "f_date", "details", "is_complete", "id", to_char("completed_on", 'Mon DD, YYYY') AS "completed_on" FROM "tasks" ORDER BY "owner" DESC, "date";`;
+      break;
+  };
+
+
 
   pool.query(queryText).then((response) =>{
-    console.log('get successful');
+    // console.log('get successful');
     res.send(response);
   }).catch((error) => {
     alert('error GETting', error);
@@ -55,10 +73,13 @@ taskRouter.post('/', (req, res) => {
 // PUT/UPDATE for marking task complete
 taskRouter.put('/complete/:id', (req, res) => {
   let taskID = req.params.id;
+  // assigns isComplete opposite value of input to make change in database
   let isComplete = (req.body.isComplete === 'true' ? 'FALSE' : 'TRUE');
-  let queryText = `UPDATE "tasks" SET "is_complete"=$1 WHERE "id"=$2;`;
+  let completedOn = (req.body.dateStamp);
+  // console.log('req.body:', req.body);
+  let queryText = `UPDATE "tasks" SET "is_complete"=$1, "completed_on"=$2 WHERE "id"=$3;`;
 
-  pool.query(queryText, [isComplete, taskID]).then(() => {
+  pool.query(queryText, [isComplete, completedOn, taskID]).then(() => {
     res.sendStatus(200);
   }).catch((error) => {
     console.log('error updating complete', error);

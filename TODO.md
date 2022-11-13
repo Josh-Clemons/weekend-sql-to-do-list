@@ -41,6 +41,8 @@ Stretch and Misc items:
     [x] add date stamp when completed
     [] research query params to understand....
     [x] sort by asc/desc options
-    [] add edit function
+    [x] add edit function
+    [x] cancel edit simplify
     [] move stuff to modules
-    
+    [x] add better code comments
+    [] update readme again

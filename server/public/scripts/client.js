@@ -21,6 +21,7 @@ function clickListeners() {
     });
     $('#taskListDiv').on('click', '.deleteButton', deleteTask);
     $('#taskListDiv').on('click', '.completeButton', completeTask);
+    $('#taskListDiv').on('click', '.editButton', editTask);
     $('#hideButton').on('click', hideCompleted);
     $('#showButton').on('click', showCompleted);
     $('.sort-button').on('click', sortTasks);
@@ -44,6 +45,14 @@ function hideCompleted() {
 function sortTasks() {
     sortOrder = $(this).data('id');
     getTasks();
+}
+
+// Sets page up for editing task
+function editTask() {
+    $('#ownerInput').val($(this).parent().siblings(':first-child').data('owner'));
+    $('#dateInput').val($(this).parent().siblings(':nth-child(2)').data('date'));
+    console.log($('#dateInput').val($(this).parent().siblings(':nth-child(2)').data('date')));
+    $('#taskDescriptionInput').val($(this).parent().siblings(':nth-child(5)').data('details'));
 }
 
 // GET tasks from database
@@ -154,13 +163,14 @@ function renderTable(tasks) {
         // console.log('task object', task);
         $('#taskListDiv').append(`
             <div class="shadow mb-2 taskItem ${task.is_complete === true ? 'onHide' : ''}">
-                <h4>Owner: ${task.owner}</h4>
-                <section><span class="lead">Date Required Complete: </span>${task.f_date}</section>
+                <h4 data-owner="${task.owner}">Owner: ${task.owner}</h4>
+                <section data-date="${task.f_date}"><span class="lead">Date Required Complete: </span>${task.f_date}</section>
                 <section><span class="lead">Task Status: </span>${task.is_complete == true ? 'Completed' : 'Not Complete'}</section>
                 <section class="${task.completed_on ? 'show' : 'hide'}"><span class="lead">Completed On: </span>${task.completed_on}</section>
-                <section><span class="lead">Details: </span>${task.details}</section>
+                <section data-details="${task.details}"><span class="lead">Details: </span>${task.details}</section>
                 <p class="mt-3 mb-3">
                     <button class="btn btn-secondary completeButton" data-id="${task.id}" data-complete="${task.is_complete}">${task.is_complete === true ? 'Undo Complete' : 'Mark Completed'}</button>
+                    <button class="btn btn-warning editButton" data-id=${task.id}>Edit</button>
                     <button class="btn btn-danger deleteButton" data-id="${task.id}">Delete</button>
                 </p>
             </div>            

@@ -25,9 +25,9 @@ Base mode tasks:
             -background, font family/size, div layout
         [x] div design
         [x] completed items class
-        [] button design
+        [x] button design
 
-[] Update Readme
+[x] Update Readme
 
 Stretch and Misc items:
     [x] fix date format
@@ -38,6 +38,8 @@ Stretch and Misc items:
         [x] confirm for delete
     [x] look into bootstrap
         [x] text input styling
-    [] add date stamp when completed
-    [] check query params to reverse order
+    [x] add date stamp when completed
+    [] research query params to understand....
+    [x] sort by asc/desc options
+    [] add edit function
     

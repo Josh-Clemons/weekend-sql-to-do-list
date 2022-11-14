@@ -53,7 +53,7 @@ h3 {
     border-radius: 10px;
     overflow: auto;
     max-width: 600px;
-    /* min-width: 300px; */
+    margin: 5px;
     padding: 5px;
 }
 

@@ -84,10 +84,8 @@ function postTask() {
         details: $('#taskDescriptionInput').val(),
         is_complete: false
     };
-
-
-// checks if we are in edit task mode. If we are,
-// do a PUT API instead
+    // checks if we are in edit task mode. If we are,
+    // do a PUT API instead
     if (mode === 'edit') {
         $.ajax({
             method: 'PUT',
@@ -133,7 +131,6 @@ function completeTask() {
         isComplete: isComplete,
         dateStamp: dateStamp
     };
-    // console.log('postObject', postObject);
 
     $.ajax({
         method: 'PUT',
@@ -145,7 +142,6 @@ function completeTask() {
         alert('error updating task', error);
     });
 };
-
 
 // DELETE task from database
 function deleteTask() {
@@ -170,10 +166,6 @@ function deleteTask() {
             return;
         }
     })
-
-        
-
-    
 };
 
 function renderTable(tasks) {
@@ -192,7 +184,7 @@ function renderTable(tasks) {
             <div class="shadow mb-2 taskItem ${task.is_complete === true ? 'onHide' : ''}">
                 <h4 data-owner="${task.owner}">Owner: ${task.owner}</h4>
                 <section data-date="${task.f_date}"><span class="lead">Date Required Complete: </span>${task.f_date}</section>
-                <section><span class="lead">Task Status: </span>${task.is_complete == true ? 'Completed' : 'Not Complete'}</section>
+                <section class="p-1 w-50 border-bottom border-dark"><span class="lead">Task Status: </span>${task.is_complete == true ? 'Completed' : 'Not Complete'}</section>
                 <section class="${task.completed_on ? 'show' : 'hide'}"><span class="lead">Completed On: </span>${task.completed_on}</section>
                 <section data-details="${task.details}"><span class="lead">Details: </span>${task.details}</section>
                 <p class="mt-3 mb-3">
@@ -207,5 +199,4 @@ function renderTable(tasks) {
     $('.hide').hide();
     $('.show').show();
     (showComplete ? showCompleted() : hideCompleted()); // hides or shows completed each time it renders to match users selected preference
-
 };
